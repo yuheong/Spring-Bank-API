@@ -9,16 +9,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.yuheong.Spring.Bank.model.CreditFacility;
 import com.yuheong.Spring.Bank.model.Customer;
+import com.yuheong.Spring.Bank.service.CreditFacilityService;
 import com.yuheong.Spring.Bank.service.CustomerService;
 
 @RestController
 public class CustomerController {
     private final CustomerService customerService;
+    private final CreditFacilityService creditFacilityService;
 
     @Autowired
-    public CustomerController(CustomerService customerService) {
+    public CustomerController(CustomerService customerService, CreditFacilityService creditFacilityService) {
         this.customerService = customerService;
+        this.creditFacilityService = creditFacilityService;
     }
 
     @GetMapping("/customers")
@@ -34,5 +38,15 @@ public class CustomerController {
     @PostMapping("/customers")
     Customer createCustomer(@RequestBody Customer customer) {
         return customerService.createCustomer(customer);
+    }
+
+    @PostMapping("/customers/{id}/credit_facility")
+    CreditFacility openCreditFacility(@PathVariable Long id) {
+        return creditFacilityService.openCreditFacility(id);
+    }
+
+    @GetMapping("/customers/{id}/credit_facility")
+    CreditFacility getCreditFacility(@PathVariable Long id) {
+        return creditFacilityService.getFacilityByCustomerId(id);
     }
 }

@@ -9,6 +9,15 @@ import lombok.Data;
 @Entity
 @Data
 public class CreditFacility {
-    private @Id @GeneratedValue Long id;
+    private @Id
+    @GeneratedValue Long id;
     private Long customerId;
+    private boolean approved;
+
+    protected CreditFacility() {
+    }
+
+    public CreditFacility(Long customerId) {
+        this.customerId = customerId;
+    }
 }
