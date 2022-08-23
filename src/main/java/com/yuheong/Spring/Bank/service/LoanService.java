@@ -1,5 +1,8 @@
 package com.yuheong.Spring.Bank.service;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,5 +37,13 @@ public class LoanService {
         Loan loan = loanRepository.findById(id).get();
         loan.setPaid(true);
         return loanRepository.save(loan);
+    }
+
+    public List<Loan> getAllCustomerLoans(Long customerId) {
+        CreditFacility creditFacility = creditFacilityService.getFacilityByCustomerId(customerId);
+        if (creditFacility == null) {
+            return Collections.emptyList();
+        }
+        return loanRepository.findAllByCreditFacilityIdIs(creditFacility.getId());
     }
 }

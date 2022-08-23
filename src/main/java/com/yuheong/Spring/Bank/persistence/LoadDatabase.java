@@ -19,6 +19,7 @@ public class LoadDatabase {
 
         return args -> {
             log.info("Preloading " + customerRepository.save(new Customer("Tom Hanks")));
+            log.info("Preloading " + customerRepository.save(new Customer("Abraham Lincoln")));
         };
     }
 }

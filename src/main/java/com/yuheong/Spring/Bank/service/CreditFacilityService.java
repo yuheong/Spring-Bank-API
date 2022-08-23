@@ -21,7 +21,6 @@ public class CreditFacilityService {
         // TODO: check customer exist
         // TODO: check credit facility exist
         if (creditFacilityRepository.findByCustomerIdIs(customerId) != null) {
-            System.out.println("HEY");
             return null;
         }
         return creditFacilityRepository.save(new CreditFacility(customerId));
